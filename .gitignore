@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+server/node_modules/
+
+# iOS build artifacts
+ios/build/
+ios/Pods/
+ios/Podfile.lock
+*.xcworkspace/
+DerivedData/
+*.ipa
+
+# Android build artifacts
+android/build/
+android/.gradle/
+android/app/build/
+
+# React Native
+.expo/
+dist/
+
+# Metro bundler
+.metro-cache/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test coverage
+coverage/
