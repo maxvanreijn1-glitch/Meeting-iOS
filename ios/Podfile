@@ -1,0 +1,54 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '13.4'
+
+# Required for CocoaPods 1.9+ on Apple Silicon
+prepare_react_native_project!
+
+target 'MeetingIOS' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # Hermes is enabled by default; disable by setting this to false
+    :hermes_enabled => true,
+    :fabric_enabled => false,
+    :flipper_configuration => FlipperConfiguration.disabled,
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  # react-native-webrtc requires these frameworks
+  pod 'react-native-webrtc', :path => '../node_modules/react-native-webrtc'
+
+  # react-native-screens
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
+  # react-native-safe-area-context
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
+  # react-native-permissions
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+
+  # @react-native-clipboard/clipboard
+  pod 'RNCClipboard', :path => '../node_modules/@react-native-clipboard/clipboard'
+
+  target 'MeetingIOSTests' do
+    inherit! :complete
+  end
+
+  post_install do |installer|
+    # react-native-webrtc requires at least iOS 13.4
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.4'
+        # Required for WebRTC
+        config.build_settings['ENABLE_BITCODE'] = 'NO'
+      end
+    end
+
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false
+    )
+  end
+end
