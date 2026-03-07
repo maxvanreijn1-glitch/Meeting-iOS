@@ -1,0 +1,5 @@
+# Xcode
+*.xcworkspace
+*.xcuserstate
+Pods/
+GoogleService-Info.plist
