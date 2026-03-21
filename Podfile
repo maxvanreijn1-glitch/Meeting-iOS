@@ -1,2 +1,5 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '15.5'
+platform :ios, '13.0'
+
+target 'LeanIOS' do
+  pod 'SSZipArchive'
+end
